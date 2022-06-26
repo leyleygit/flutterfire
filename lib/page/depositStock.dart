@@ -19,6 +19,23 @@ class _DepositScreenState extends State<DepositScreen> {
   bool isValid = false;
   FocusNode focusNode = FocusNode();
   BehaviorSubject<bool> subjectButton = BehaviorSubject<bool>();
+
+  void showSnackBar(BuildContext context, SnackBar snackBar) {
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
+  SnackBar depositSnackBar = SnackBar(
+    content: Row(children: const [
+      Text('Stock has been Added'),
+      SizedBox(
+        width: 20,
+      ),
+      Icon(
+        Icons.check_circle_outline,
+        color: Colors.green,
+      )
+    ]),
+  );
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -143,10 +160,13 @@ class _DepositScreenState extends State<DepositScreen> {
                                               .collection("products")
                                               .doc(widget.idProduct)
                                               .update({
-                                            "qty": FieldValue.increment(
-                                                num.parse(controller.text))
-                                          }).then((value) =>
-                                                  controller.clear());
+                                                "qty": FieldValue.increment(
+                                                    num.parse(controller.text))
+                                              })
+                                              .then(
+                                                  (value) => controller.clear())
+                                              .then((value) => showSnackBar(
+                                                  context, depositSnackBar));
 
                                           //Navigator.pop(context);
                                         },

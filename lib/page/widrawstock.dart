@@ -2,9 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutterfire/page/homeScreen.dart';
+
 import 'package:flutterfire/product_model.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -22,7 +20,22 @@ class _WidrawstockState extends State<Widrawstock> {
   FocusNode focusNode = FocusNode();
   final _formKey = GlobalKey<FormState>();
   bool isValid = false;
+  void showSnackBar(BuildContext context, SnackBar snackBar) {
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
 
+  SnackBar widrawSnackBar = SnackBar(
+    content: Row(children: const [
+      Text('Stock has been minus'),
+      SizedBox(
+        width: 20,
+      ),
+      Icon(
+        Icons.check_circle_outline,
+        color: Colors.green,
+      )
+    ]),
+  );
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -155,10 +168,14 @@ class _WidrawstockState extends State<Widrawstock> {
                                           .collection("products")
                                           .doc(widget.idProduct)
                                           .update({
-                                        "qty": FieldValue.increment(-num.parse(
-                                            textEditingController.text))
-                                      }).then((value) =>
-                                              textEditingController.clear());
+                                            "qty": FieldValue.increment(
+                                                -num.parse(
+                                                    textEditingController.text))
+                                          })
+                                          .then((value) =>
+                                              textEditingController.clear())
+                                          .then((value) => showSnackBar(
+                                              context, widrawSnackBar));
                                       //Navigator.pop(context);
                                     },
                               // onPressed: () {

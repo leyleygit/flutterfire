@@ -25,6 +25,22 @@ class _HomeScrennState extends State<HomeScrenn> with TickerProviderStateMixin {
       BehaviorSubject<AnimationController>();
   BehaviorSubject<Animation> subjectAnimation2 = BehaviorSubject<Animation>();
 
+  void showSnackBar(BuildContext context, SnackBar snackBar) {
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
+  SnackBar deletednackBar = SnackBar(
+    content: Row(children: const [
+      Text('Product has been Deletd successfully'),
+      SizedBox(
+        width: 20,
+      ),
+      Icon(
+        Icons.check_circle_outline,
+        color: Colors.yellow,
+      )
+    ]),
+  );
   final _key = GlobalKey<ScaffoldState>();
   deleteProductFuc() async {
     return await FirebaseFirestore.instance
@@ -138,6 +154,7 @@ class _HomeScrennState extends State<HomeScrenn> with TickerProviderStateMixin {
                 onPressed: () {
                   deleteProductFuc();
                   Navigator.pop(context);
+                  showSnackBar(context, deletednackBar);
                 },
                 size: size,
                 centerString: 'Delete product',
