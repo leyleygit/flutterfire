@@ -52,9 +52,9 @@ class _HomeScrennState extends State<HomeScrenn> with TickerProviderStateMixin {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
-        floatingActionButton: FloatingActionButton(onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (_) => Stream()));
-        }),
+        // floatingActionButton: FloatingActionButton(onPressed: () {
+        //   Navigator.push(context, MaterialPageRoute(builder: (_) => Stream()));
+        // }),
         key: _key,
         drawerEdgeDragWidth: 0,
         drawer: Container(
@@ -154,7 +154,7 @@ class _HomeScrennState extends State<HomeScrenn> with TickerProviderStateMixin {
                 SliverAppBar(
                   automaticallyImplyLeading: false,
                   backgroundColor: Colors.red[900],
-                  title: const Text('Phone Stock'),
+                  title: const Text('Fruit Shope'),
                   centerTitle: true,
                   actions: [
                     Padding(
@@ -194,9 +194,9 @@ class _HomeScrennState extends State<HomeScrenn> with TickerProviderStateMixin {
                         return Container(
                             child: DataTable(
                           columns: const [
-                            DataColumn(label: Text('Name')),
-                            DataColumn(label: Text('Qty')),
-                            DataColumn(label: Text('Price')),
+                            DataColumn(label: Text('ឈ្មោះ')),
+                            DataColumn(label: Text('ចំនួន')),
+                            DataColumn(label: Text('តម្លៃលក់')),
                           ],
                           rows: [
                             ...List.generate(fetchlistPorductModel.length,
@@ -217,7 +217,7 @@ class _HomeScrennState extends State<HomeScrenn> with TickerProviderStateMixin {
                                       fetchlistPorductModel[index]
                                               .price
                                               .toString() +
-                                          " \$",
+                                          " រៀល",
                                       style: TextStyle(
                                           color: Colors.red[500],
                                           fontWeight: FontWeight.bold,

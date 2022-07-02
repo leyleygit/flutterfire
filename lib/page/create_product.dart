@@ -197,7 +197,6 @@ class _CreateProductsState extends State<CreateProducts> {
                           if (!_formKey.currentState!.validate()) {
                             return showSnackBar(context, erorrsnackBar);
                           }
-
                           return await FirebaseFirestore.instance
                               .collection('products')
                               .add({
